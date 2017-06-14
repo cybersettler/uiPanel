@@ -1,0 +1,23 @@
+{
+  "name": "uipanel",
+  "description": "Panel component for websemble application",
+  "main": "",
+  "authors": [
+    "cybersettler@babylonone.com"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "websemble",
+    "html5",
+    "electron",
+    "javascript"
+  ],
+  "homepage": "https://github.com/cybersettler/uiPanel",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

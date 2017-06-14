@@ -1,0 +1,36 @@
+{
+  "name": "uipanel",
+  "version": "1.0.0",
+  "description": "Panel component for websemble application",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha ./test/component/ui/Panel"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cybersettler/uiPanel.git"
+  },
+  "keywords": [
+    "websemble",
+    "html5",
+    "electron",
+    "javascript"
+  ],
+  "author": "cybersettler@babylonone.com",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/cybersettler/uiPanel/issues"
+  },
+  "homepage": "https://github.com/cybersettler/uiPanel#readme",
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "d3": "^4.9.1",
+    "handlebars": "^4.0.10",
+    "i18next": "^8.4.2",
+    "jsdom": "^11.0.0",
+    "mocha": "^3.4.2"
+  }
+}
