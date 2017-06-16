@@ -37,9 +37,25 @@ PanelWidget.prototype.fetchData = function() {
 };
 
 function renderPanel(widget) {
-    widget.panel.innerHTML = widget.template({
-        model: widget.model
+    getContext(widget).then(function(context) {
+        clearClassList(widget.panel);
+        widget.panel.classList.add('panel-' + context);
+        widget.panel.innerHTML = widget.template({
+            model: widget.model
+        });
     });
+}
+
+function getContext(widget) {
+    return widget.scope.getContext ? widget.scope.getContext() :
+        Promise.resolve('default');
+}
+
+function clearClassList(el) {
+    var classList = el.classList;
+    while (classList.length > 1) {
+        classList.remove(classList.item(1));
+    }
 }
 
 module.exports = PanelWidget;
