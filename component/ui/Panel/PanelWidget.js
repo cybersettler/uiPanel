@@ -44,6 +44,12 @@ function renderPanel(widget) {
             model: widget.model
         });
     });
+
+    var table = findPanelBodyTableSibling(widget);
+
+    if (table) {
+        table.classList.add('table-border-top');
+    }
 }
 
 function getContext(widget) {
@@ -56,6 +62,10 @@ function clearClassList(el) {
     while (classList.length > 1) {
         classList.remove(classList.item(1));
     }
+}
+
+function findPanelBodyTableSibling(widget) {
+    return widget.shadowRoot.querySelector('.panel-body + ui-table');
 }
 
 module.exports = PanelWidget;
