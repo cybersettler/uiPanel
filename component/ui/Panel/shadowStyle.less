@@ -55,6 +55,10 @@
   .border-bottom-radius((@panel-border-radius - 1));
 }
 
+.panel > ui-table + .panel-body {
+  border-top: 1px solid @table-border-color;
+}
+
 // List groups in panels
 //
 // By default, space out list group content from panel headings to account for
