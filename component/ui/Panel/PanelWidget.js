@@ -43,13 +43,13 @@ function renderPanel(widget) {
         widget.panel.innerHTML = widget.template({
             model: widget.model
         });
+
+        var table = findPanelBodyTableSibling(widget);
+
+        if (table) {
+            table.classList.add('table-border-top');
+        }
     });
-
-    var table = findPanelBodyTableSibling(widget);
-
-    if (table) {
-        table.classList.add('table-border-top');
-    }
 }
 
 function getContext(widget) {
@@ -65,7 +65,7 @@ function clearClassList(el) {
 }
 
 function findPanelBodyTableSibling(widget) {
-    return widget.shadowRoot.querySelector('.panel-body + ui-table');
+    return widget.panel.querySelector('.panel-body + ui-table');
 }
 
 module.exports = PanelWidget;
