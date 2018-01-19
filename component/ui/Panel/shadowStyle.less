@@ -22,13 +22,13 @@
 }
 
 // Panel contents
-content::content .panel-body {
+content[select=".panel-body"]::content .panel-body {
   padding: @panel-body-padding;
   &:extend(.clearfix all);
 }
 
 // Optional heading
-content::content .panel-heading {
+content[select=".panel-heading"]::content .panel-heading {
   padding: @panel-heading-padding;
   border-bottom: 1px solid transparent;
   .border-top-radius((@panel-border-radius - 1));
@@ -55,14 +55,14 @@ content::content .panel-heading {
 }
 
 // Optional footer (stays gray in every modifier class)
-content::content .panel-footer {
+content[select=".panel-footer"]::content .panel-footer {
   padding: @panel-footer-padding;
   background-color: @panel-footer-bg;
   border-top: 1px solid @panel-inner-border;
   .border-bottom-radius((@panel-border-radius - 1));
 }
 
-content::content .panel-table {
+content[select=".panel-table"]::content .panel-table {
   border-top: 1px solid @table-border-color;
 }
 
