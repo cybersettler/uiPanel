@@ -11,8 +11,8 @@ function PanelController(view, scope) {
             bindingAttributes.push('model');
         }
 
-        if (view.hasAttribute('data-context')) {
-            bindingAttributes.push('context');
+        if (view.hasAttribute('data-display')) {
+            bindingAttributes.push('display');
         }
 
         scope.bindAttributes(bindingAttributes);

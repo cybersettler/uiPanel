@@ -2,7 +2,14 @@
 // Panels
 // --------------------------------------------------
 
-@import "base.less";
+@import "variables.less";
+
+// utilities
+@import "mixins/vendor-prefixes.less";
+
+// skins
+@import "mixins/border-radius.less";
+
 @import "mixins/panels.less";
 
 // Base class
@@ -144,26 +151,26 @@ content::content .panel-table {
 }
 
 // Contextual variations
-:host(.panel-default) {
+:host(.panel-default) .panel{
   .panel-variant(@panel-default-border; @panel-default-text; @panel-default-heading-bg; @panel-default-border);
 }
 
-:host(.panel-primary) {
+:host(.panel-primary) .panel{
   .panel-variant(@panel-primary-border; @panel-primary-text; @panel-primary-heading-bg; @panel-primary-border);
 }
 
-:host(.panel-success) {
+:host(.panel-success) .panel{
   .panel-variant(@panel-success-border; @panel-success-text; @panel-success-heading-bg; @panel-success-border);
 }
 
-:host(.panel-info) {
+:host(.panel-info) .panel{
   .panel-variant(@panel-info-border; @panel-info-text; @panel-info-heading-bg; @panel-info-border);
 }
 
-:host(.panel-warning) {
+:host(.panel-warning) .panel{
   .panel-variant(@panel-warning-border; @panel-warning-text; @panel-warning-heading-bg; @panel-warning-border);
 }
 
-:host(.panel-danger) {
+:host(.panel-danger) .panel{
   .panel-variant(@panel-danger-border; @panel-danger-text; @panel-danger-heading-bg; @panel-danger-border);
 }
