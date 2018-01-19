@@ -1,39 +1,114 @@
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+const { JSDOM } = require("jsdom");
+const i18next = require('i18next');
+const Handlebars = require('Handlebars');
 const expect = require('chai').expect;
 const PanelWidget = require("../../../../component/ui/Panel/PanelWidget.js");
 var view;
 var model;
-var schema;
 var display;
 const scope = {
     getModel: function() {
         return Promise.resolve(model);
+    },
+    getDisplay: function() {
+        return Promise.resolve(display);
+    }
+};
+
+const translations = {
+    lng: 'en',
+    resources: {
+        en: {
+            translation: {
+                user: {
+                    firstname: 'First name',
+                    lastname: 'Last name',
+                    profile: 'Profile'
+                },
+                login: {
+                    option: {
+                        login: 'Log in',
+                        logout: 'Log out'
+                    },
+                    status: {
+                        anonymous: 'anonymous'
+                    }
+                },
+                system: {
+                    option: {
+                        settings: 'Settings'
+                    }
+                }
+            }
+        }
     }
 };
 
 describe('PanelWidget', function() {
     describe('#render()', function() {
-        before(function() {
-            document = (new JSDOM('<!DOCTYPE html><html><bod></body></html>')).window.document;
+        before(function(done) {
+            var dom = new JSDOM('<!DOCTYPE html><html><bod></body></html>');
+            document = dom.window.document;
+            i18next.init(translations, (err, t) => {
+                Handlebars.registerHelper('i18n', function (key, opt) {
+                    return t(key, opt);
+                });
+                done(err);
+            });
+            scope.templateEngine = {
+                render: function(template, data) {
+                    var doRender = Handlebars.compile(template);
+                    return doRender(data);
+                },
+                compile: function(template) {
+                    return Handlebars.compile(template);
+                }
+            };
         });
         beforeEach(function() {
             model = null;
-            schema = null;
             display = null;
         });
         it('should generate panel from content', function(done) {
             givenModel();
-            givenViewWithContent('{{ model.name }}');
+            givenViewWithContent();
             let modelValue = "/contact/1";
             view.setAttribute('data-model', modelValue);
             view.dataset.model = modelValue;
             let widget = new PanelWidget(view, scope);
             widget.render().then(function() {
-                let panel = view.shadowRoot.querySelector('.panel');
-                let panelBody = panel.querySelector('.panel-body');
-                expect(panelBody).to.exist;
-                expect(panelBody.textContent).to.equal('test');
+                let header = view.querySelector('.panel-header');
+                let body = view.querySelector('.panel-body');
+                let footer = view.querySelector('.panel-footer');
+                expect(header).to.exist;
+                expect(body).to.exist;
+                expect(footer).to.exist;
+                expect(header.textContent).to.equal('Profile');
+                expect(body.textContent).to.equal('Bruce Banner');
+                expect(footer.textContent).to.equal('Log out');
+                done();
+            }).catch(done);
+        });
+        it('should generate panel from display', function(done) {
+            givenModel();
+            givenDisplay();
+            let modelValue = "/contact/1";
+            let displayValue = "{display}";
+            view.setAttribute('data-model', modelValue);
+            view.setAttribute('data-display', displayValue);
+            view.dataset.model = modelValue;
+            view.dataset.display = displayValue;
+            let widget = new PanelWidget(view, scope);
+            widget.render().then(function() {
+                let header = view.querySelector('.panel-header');
+                let body = view.querySelector('.panel-body');
+                let footer = view.querySelector('.panel-footer');
+                expect(header).to.exist;
+                expect(body).to.exist;
+                expect(footer).to.exist;
+                expect(header.textContent).to.equal('Profile');
+                expect(body.textContent).to.equal('Bruce Banner');
+                expect(footer.textContent).to.equal('Log out');
                 done();
             }).catch(done);
         });
@@ -42,7 +117,15 @@ describe('PanelWidget', function() {
 
 function givenModel() {
     model = {
-        name: 'test'
+        name: 'Bruce Banner'
+    };
+}
+
+function givenDisplay() {
+    display = {
+        header: "{{i18n 'user.profile'}}",
+        body: '{{model.name}}',
+        footer: "{{i18n 'login.option.logout'}}"
     };
 }
 
@@ -55,12 +138,21 @@ function givenEmptyView() {
     view.dataset = {};
 }
 
-function givenViewWithContent(content) {
+function givenViewWithContent() {
     givenEmptyView();
-    var panelBody = document.createElement('div');
+    let panelHeader = document.createElement('div');
+    panelHeader.classList.add('panel-header');
+    let panelBody = document.createElement('div');
     panelBody.classList.add('panel-body');
-    panelBody.innerHTML = content;
+    let panelFooter = document.createElement('div');
+    panelFooter.classList.add('panel-footer');
+    panelHeader.textContent = "{{i18n 'user.profile'}}";
+    panelBody.textContent = '{{ model.name }}';
+    panelFooter.textContent = "{{i18n 'login.option.logout'}}";
+
+    view.appendChild(panelHeader);
     view.appendChild(panelBody);
+    view.appendChild(panelFooter);
 }
 
 function createShadowRoot() {

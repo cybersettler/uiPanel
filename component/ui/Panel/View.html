@@ -1,6 +1,12 @@
 <template class="shadow">
     <style><%- shadowStyle %></style>
-    <div class="panel"></div>
+    <div class="panel">
+        <content selector=".panel-header"></content>
+        <content selector=".panel-body"></content>
+        <content selector=".panel-list"></content>
+        <content selector=".panel-table"></content>
+        <content selector=".panel-footer"></content>
+    </div>
 </template>
 
 <script>
