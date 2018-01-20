@@ -2,14 +2,14 @@ function PanelWidget(view, scope) {
     this.view = view;
     this.scope = scope;
 
-    let header = view.querySelector('.panel-header');
+    let heading = view.querySelector('.panel-heading');
     let body = view.querySelector('.panel-body');
     let list = view.querySelector('.panel-list');
     let table = view.querySelector('.panel-table');
     let footer = view.querySelector('.panel-footer');
 
-    if (header) {
-        this.renderHeaderTemplate = scope.templateEngine.compile(header.innerHTML);
+    if (heading) {
+        this.renderHeadingTemplate = scope.templateEngine.compile(heading.innerHTML);
     }
 
     if (body) {
@@ -28,7 +28,7 @@ function PanelWidget(view, scope) {
         this.renderFooterTemplate = scope.templateEngine.compile(footer.innerHTML);
     }
 
-    this.header = header;
+    this.heading = heading;
     this.body = body;
     this.listGroup = list;
     this.table = table;
@@ -74,21 +74,6 @@ function renderPanel(widget) {
     } else {
         renderPanelFromContent(widget);
     }
-
-    /*
-    getContext(widget).then(function(context) {
-        clearClassList(widget.panel);
-        widget.panel.classList.add('panel-' + context);
-        widget.panel.innerHTML = widget.template({
-            model: widget.model
-        });
-
-        var table = findPanelBodyTableSibling(widget);
-
-        if (table) {
-            table.classList.add('table-border-top');
-        }
-    }); */
 }
 
 function renderPanelFromContent(widget) {
@@ -96,8 +81,8 @@ function renderPanelFromContent(widget) {
         model: widget.model
     };
 
-    if (widget.header) {
-        widget.header.innerHTML = widget.renderHeaderTemplate(data);
+    if (widget.heading) {
+        widget.heading.innerHTML = widget.renderHeadingTemplate(data);
     }
 
     if (widget.body) {
@@ -118,22 +103,22 @@ function renderPanelFromContent(widget) {
 }
 
 function renderPanelFromDisplay(widget) {
-    renderPanelHeaderFromDisplay(widget);
+    renderPanelheadingFromDisplay(widget);
     renderPanelBodyFromDisplay(widget);
     renderPanelFooterFromDisplay(widget);
 }
 
-function renderPanelHeaderFromDisplay(widget) {
-    if (!widget.display.header) {
+function renderPanelheadingFromDisplay(widget) {
+    if (!widget.display.heading) {
         return;
     }
-    if (!widget.header) {
-        let header = document.createElement('div');
-        header.classList.add('panel-header');
-        widget.header = header;
+    if (!widget.heading) {
+        let heading = document.createElement('div');
+        heading.classList.add('panel-heading');
+        widget.heading = heading;
     }
-    widget.header.innerHTML = widget.scope.templateEngine.render(
-        widget.display.header, {model: widget.model});
+    widget.heading.innerHTML = widget.scope.templateEngine.render(
+        widget.display.heading, {model: widget.model});
 }
 
 function renderPanelBodyFromDisplay(widget) {
@@ -142,7 +127,7 @@ function renderPanelBodyFromDisplay(widget) {
     }
     if (!widget.body) {
         let body = document.createElement('div');
-        body.classList.add('panel-header');
+        body.classList.add('panel-heading');
         widget.body = body;
     }
     widget.body.innerHTML = widget.scope.templateEngine.render(
@@ -160,22 +145,6 @@ function renderPanelFooterFromDisplay(widget) {
     }
     widget.footer.innerHTML = widget.scope.templateEngine.render(
         widget.display.footer, {model: widget.model});
-}
-
-function getContext(widget) {
-    return widget.scope.getContext ? widget.scope.getContext() :
-        Promise.resolve('default');
-}
-
-function clearClassList(el) {
-    var classList = el.classList;
-    while (classList.length > 1) {
-        classList.remove(classList.item(1));
-    }
-}
-
-function findPanelBodyTableSibling(widget) {
-    return widget.panel.querySelector('.panel-body + ui-table');
 }
 
 module.exports = PanelWidget;

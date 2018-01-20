@@ -20,7 +20,7 @@ In your project's bower.json:
 
 ```html
 <ui-panel class="panel-default">
-    <div class="panel-header">
+    <div class="panel-heading">
         {{i18n 'mypanel.title'}}
     </div>
     <div class="panel-body">
@@ -49,6 +49,6 @@ Data to be used to display panel.
 
 The following properties are supported:
 
-* __header__(string): Header template
+* __heading__(string): Header template
 * __body__(string): Body template
 * __footer__(string): Footer template
