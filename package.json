@@ -1,6 +1,6 @@
 {
   "name": "uipanel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Panel component for websemble application",
   "main": "index.js",
   "directories": {
