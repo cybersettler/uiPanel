@@ -12,7 +12,7 @@ In your project's bower.json:
 ```json
 {
   "dependencies": {
-    "uiForm": "cybersettler/uiPanel"
+    "uiPanel": "cybersettler/uiPanel"
   }
 }
 ```
