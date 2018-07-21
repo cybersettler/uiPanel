@@ -1,7 +1,7 @@
 {
   "name": "uipanel",
   "version": "1.0.1",
-  "description": "Panel component for websemble application",
+  "description": "Panel component for weldkit application",
   "main": "index.js",
   "directories": {
     "test": "test"
