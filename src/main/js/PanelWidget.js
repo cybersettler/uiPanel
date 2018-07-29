@@ -1,4 +1,6 @@
-function PanelWidget(view, scope) {
+class PanelWidget {
+
+  constructor(view, scope) {
     this.view = view;
     this.scope = scope;
 
@@ -9,23 +11,25 @@ function PanelWidget(view, scope) {
     let footer = view.querySelector('.panel-footer');
 
     if (heading) {
-        this.renderHeadingTemplate = scope.templateEngine.compile(heading.innerHTML);
+      this.renderHeadingTemplate = scope.templateEngine.compile(
+          heading.innerHTML);
     }
 
     if (body) {
-        this.renderBodyTemplate = scope.templateEngine.compile(body.innerHTML);
+      this.renderBodyTemplate = scope.templateEngine.compile(body.innerHTML);
     }
 
     if (list) {
-        this.renderListTemplate = scope.templateEngine.compile(list.innerHTML);
+      this.renderListTemplate = scope.templateEngine.compile(list.innerHTML);
     }
 
     if (table) {
-        this.renderTableTemplate = scope.templateEngine.compile(table.innerHTML);
+      this.renderTableTemplate = scope.templateEngine.compile(table.innerHTML);
     }
 
     if (footer) {
-        this.renderFooterTemplate = scope.templateEngine.compile(footer.innerHTML);
+      this.renderFooterTemplate = scope.templateEngine.compile(
+          footer.innerHTML);
     }
 
     this.heading = heading;
@@ -34,38 +38,40 @@ function PanelWidget(view, scope) {
     this.table = table;
     this.footer = footer;
 
-}
+  }
 
-PanelWidget.prototype.render = function() {
+  render() {
     return this.fetchData().then(renderPanel);
-};
+  }
 
-PanelWidget.prototype.fetchData = function() {
-    var promises = [];
-    var widget = this;
+  fetchData() {
+    let promises = [];
+    let widget = this;
 
     promises.push(widget.scope.onAppReady);
 
     if (this.view.hasAttribute('data-model')) {
-        promises.push(
-            this.scope.getModel().then(function(result) {
-                widget.model = result;
-            })
-        );
+      promises.push(
+          this.scope.getModel().then(function(result) {
+            widget.model = result;
+          })
+      );
     }
 
     if (this.view.hasAttribute('data-display')) {
-        promises.push(
-            this.scope.getDisplay().then(function(result) {
-                widget.display = result;
-            })
-        );
+      promises.push(
+          this.scope.getDisplay().then(function(result) {
+            widget.display = result;
+          })
+      );
     }
 
     return Promise.all(promises).then(function() {
-        return widget;
+      return widget;
     });
-};
+  }
+
+}
 
 function renderPanel(widget) {
 
@@ -147,4 +153,4 @@ function renderPanelFooterFromDisplay(widget) {
         widget.display.footer, {model: widget.model});
 }
 
-module.exports = PanelWidget;
+export default PanelWidget;

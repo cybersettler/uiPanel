@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha ./test/component/ui/Panel"
+    "test": "mocha ./src/test/**/"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,10 @@
     "handlebars": "^4.0.10",
     "i18next": "^8.4.2",
     "jsdom": "^11.0.0",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "systemjs": "^0.21.4"
+  },
+  "dependencies": {
+    "weldkit": "^0.1.0"
   }
 }
