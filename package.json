@@ -36,6 +36,6 @@
     "systemjs": "^0.21.4"
   },
   "dependencies": {
-    "weldkit": "^0.1.0"
+    "weldkit": "^0.1.1"
   }
 }
