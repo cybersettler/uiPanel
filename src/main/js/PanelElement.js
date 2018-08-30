@@ -1,4 +1,4 @@
-import {FragmentElement} from '../../../node_modules/weldkit/index.js';
+import {FragmentElement} from '/node_modules/weldkit/index.js';
 import PanelWidget from './PanelWidget.js';
 
 class PanelElement extends FragmentElement {
