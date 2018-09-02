@@ -40,6 +40,6 @@ class PanelElement extends FragmentElement {
   }
 }
 
-customElements.define('ui-panel', PanelElement);
+customElements.define('wkui-panel', PanelElement);
 
 export default PanelElement;
