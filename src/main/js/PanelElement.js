@@ -30,9 +30,13 @@ class PanelElement extends FragmentElement {
     }
 
     this.scope.bindAttributes(bindingAttributes);
+    let element = this;
 
-    this.panelWidget = new PanelWidget(this, this.scope);
-    this.render();
+    this.scope.onAppReady.then(() => {
+      element.panelWidget = new PanelWidget(element, element.scope);
+      element.render();
+    });
+
   }
 
   render() {
